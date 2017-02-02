@@ -1,4 +1,16 @@
 #!/bin/bash
+
+###################################################################################
+######################### IpTables Settings #######################################
+
+#fixing problems with file attribute
+chattr -i /etc/sysconfig/iptables
+#adding rules for firewall
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+#save iptables settings
+service iptables save
+
 ###################################################################################
 ######################### Fixing httpd ############################################
 
@@ -18,38 +30,37 @@ sed -i 's/tomcat.worker/tomcat-worker/g' /etc/httpd/conf.d/vhost.conf
 sed -i 's/mntlab/*/g' /etc/httpd/conf.d/vhost.conf
 
 #restarting httpd
-/etc/init.d/httpd restart
+service httpd restart
 
 ###################################################################################
 ######################### Fixing tomcat ###########################################
 
-#enable tomcat autostart
-chkconfig tomcat on
 
-#TODO understand how to use variables as argument for /bin/something as string parameter
+#fixing tomcat startup file
+sed -i 's/\/current/7.0.62/g' /etc/init.d/tomcat
+
+#removing success from start stop cases and remove /dev/null
+sed -i '/success/d' /etc/init.d/tomcat
+sed -i 's/> \/dev\/null//g' /etc/init.d/tomcat
+
+#change tomcat user varibles paths
+sed -i 's/export/#export/g' /home/tomcat/.bashrc
+
+#TODO understand how to use variables as argument for ''something'' as string parameter
 #path_to_java=`ls -la /etc/alternatives/ | grep bin/java$ | awk '{print $11}'`
 #echo $path_to_java
 #alternatives --set java `ls -la /etc/alternatives/ | grep bin/java$ | awk '{print $11}'`
-#alternatives --set java "/opt/oracle/java/i586//jdk1.7.0_79/bin/java"
+#alternatives --set java $path_to_java
 
 #fix java version problems with alternatives
-sudo alternatives --remove java /opt/oracle/java/i586//jdk1.7.0_79/bin/java
-sudo alternatives --install /usr/bin/java java /opt/oracle/java/x64//jdk1.7.0_79/bin/java 2000
+alternatives --set java /opt/oracle/java/x64//jdk1.7.0_79/bin/java
 
 #fixing log storage problem
 chown -R tomcat:tomcat /opt/apache/tomcat/7.0.62/logs/
-chmod -R 666 /opt/apache/tomcat/7.0.62/logs/
+
+#enable tomcat autostart
+chkconfig tomcat on
 
 #start tomcat
-/opt/apache/tomcat/7.0.62/bin/startup.sh
+service tomcat start
 
-
-###################################################################################
-######################### IpTables Settings #######################################
-#fixing problems with file attribute
-chattr -i /etc/sysconfig/iptables
-#adding rules for firewall
-iptables -A INPUT -p tcp --dport 22 -j ACCEPT
-iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-#save iptables settings
-service iptables save
