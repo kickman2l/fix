@@ -8,4 +8,4 @@
 |5|After starting tomcat server error message appears. Cannot find /tmp/bin/setclasspath.sh|Try to start tomcat manually. And find dependencies about error we received.|90min|After investigation detected that tomcat runs under user named tomcat and this user had predefined path variables in .bashrc. We comment defenition ot this variables to use globally defined variables.|60min|
 |6|Error message on start tomcat received.|After starting tomcat server we received error message that catalina have no access to logs directory. Check owner of log directory.|60min|Set owner of log directory to tomcat.|20min|
 |7|503 error still appears.|Checking log files. Catalina out error. Cant find ELF interpreter. No such file or directory. Check java version with alternatives.|60min|Check paths to java. Change java version to needed by alternatives.|60min|
-|8||||||
+|8|Curl pages return fine. But custom errors not returned. Tomcat returns default error page.|Try to curl wrong location which not exists.|60min|To send errors from tomcat to apache we should use use_server_errors parameter with mount worker.|60min|
