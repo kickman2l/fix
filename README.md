@@ -12,20 +12,31 @@
 
 ###Additional Questions:
 1. What java version is installed?
-   * Item 3b
+   * java -version
+   * java version "1.7.0_79"
+   * Java(TM) SE Runtime Environment (build 1.7.0_79-b15)
+   * Java HotSpot(TM) 64-Bit Server VM (build 24.79-b02, mixed mode)
 2. How was it installed and configured?
-   * Item 3b
+   * sudo yum install -y 1.7
 3. Where are log files of tomcat and httpd?
-   * Item 3b
+   * tomcat : /opt/apache/tomcat/7.0.62/logs
+   * httpd :  /var/log/httpd
 4. Where is JAVA_HOME and what is it?
-   * Item 3b
+   * The JAVA_HOME environment variable points to the directory where the Java runtime environment (JRE) is installed on your computer.
 5. Where is tomcat installed?
-   * Item 3b
+   * tomcat : /opt/apache/tomcat/7.0.62/
 6. What is CATALINA_HOME?
-   * Item 3b
+   * The variable CATALINA_HOME is a configuration property that stores the location of the Catalina files.
 7. What users run httpd and tomcat processes? How is it configured?
-   * Item 3b
+  * httpd: Main process runned under root child processes under apache
+  * ps -ef | grep httpd
+  * root      7915     1  0 01:49 ?        00:00:00 /usr/sbin/httpd
+  * apache    7919  7915  0 01:49 ?        00:00:00 /usr/sbin/httpd
+  * ---------------------------------------------------------------------
+  * tomcat: Process runned under user tomcat
+  * ps -ef | grep tomcat
+  * tomcat 7977     1  0 01:49 ?        00:00:06 /usr/bin/java
 8. What configuration files are used to make components work with each other?
-   * Item 3b
+   * vhost.conf workers.properties
 9. What does it mean: “load average: 1.18, 0.95, 0.83”?
-   * Item 3b
+   * The load average represents the average system load over a period of time. It conventionally appears in the form of three numbers      * which represent the system load during the last one, five, and fifteen minute periods.
