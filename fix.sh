@@ -29,6 +29,14 @@ sed -i 's/192.168.56.100/192.168.56.10/g' /etc/httpd/conf.d/workers.properties
 sed -i 's/tomcat.worker/tomcat-worker/g' /etc/httpd/conf.d/vhost.conf
 sed -i 's/mntlab/*/g' /etc/httpd/conf.d/vhost.conf
 
+#add error locations and enable server errors
+sed -i '/ErrorDocument/d' /etc/httpd/conf.d/vhost.conf
+sed -i '/*:80/a ErrorDocument 404 \/error' /etc/httpd/conf.d/vhost.conf
+sed -i '/*:80/a ErrorDocument 500 \/error' /etc/httpd/conf.d/vhost.conf
+sed -i '/*:80/a ErrorDocument 503 \/error' /etc/httpd/conf.d/vhost.conf
+sed -i '/*:80/a ErrorDocument 504 \/error' /etc/httpd/conf.d/vhost.conf
+sed -i 's/* tomcat-worker/* tomcat-worker\;use_server_errors=400\,500/g' /etc/httpd/conf.d/vhost.conf
+
 #restarting httpd
 service httpd restart
 
@@ -63,4 +71,3 @@ chkconfig tomcat on
 
 #start tomcat
 service tomcat start
-
