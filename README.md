@@ -9,3 +9,23 @@
 |6|Error message on start tomcat received.|After starting tomcat server we received error message that catalina have no access to logs directory. Check owner of log directory.|60min|Set owner of log directory to tomcat.|20min|
 |7|503 error still appears.|Checking log files. Catalina out error. Cant find ELF interpreter. No such file or directory. Check java version with alternatives.|60min|Check paths to java. Change java version to needed by alternatives.|60min|
 |8|Curl pages return fine. But custom errors not returned. Tomcat returns default error page.|Try to curl wrong location which not exists.|60min|To send errors from tomcat to apache we should use use_server_errors parameter with mount worker.|60min|
+
+###Additional Questions:
+1. What java version is installed?
+   * Item 3b
+2. How was it installed and configured?
+   * Item 3b
+3. Where are log files of tomcat and httpd?
+   * Item 3b
+4. Where is JAVA_HOME and what is it?
+   * Item 3b
+5. Where is tomcat installed?
+   * Item 3b
+6. What is CATALINA_HOME?
+   * Item 3b
+7. What users run httpd and tomcat processes? How is it configured?
+   * Item 3b
+8. What configuration files are used to make components work with each other?
+   * Item 3b
+9. What does it mean: “load average: 1.18, 0.95, 0.83”?
+   * Item 3b
