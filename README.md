@@ -39,4 +39,4 @@
 8. What configuration files are used to make components work with each other?
    * vhost.conf workers.properties
 9. What does it mean: “load average: 1.18, 0.95, 0.83”?
-   * The load average represents the average system load over a period of time. It conventionally appears in the form of three numbers      * which represent the system load during the last one, five, and fifteen minute periods.
+   * The load average represents the average system load over a period of time. It conventionally appears in the form of three numbers which represent the system load during the last one, five, and fifteen minute periods.
